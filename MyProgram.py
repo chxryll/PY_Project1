@@ -14,7 +14,7 @@ class ElectricCar(Vehicle):
         Vehicle.__init__(self, number_of_wheels, type_of_tank, seating_capcity, maximum_velocity)
 
 
-vios = Vehicle('4','petrol',5,180)
+vios = Vehicle('4','petrol',5,150)
 print(vios.number_of_wheels)
 print(vios.type_of_tank)
 print(vios.seating_capacity)
