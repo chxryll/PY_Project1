@@ -1,24 +1,69 @@
-class Vehicle:
-    def __init__(self, number_of_wheels, type_of_tank, seating_capacity, maximum_velocity):
-        self.number_of_wheels = number_of_wheels
-        self.type_of_tank = type_of_tank
-        self.seating_capacity = seating_capacity
-        self.maximum_velocity = maximum_velocity
+import pandas as pd
+file= pd.read_excel('dataNew.xls')
+print(file)
 
+files=file['Period'].str.split(' ',n=1,expand=True)
+print(files)
 
-    def drive(self):
-        print("The vehicle is driving mode now")
+file= file.assign(year=files[1])
 
-class ElectricCar(Vehicle):
-    def __init__(self, number_of_wheels, type_of_tank, seating_capcity, maximum_velocity):
-        Vehicle.__init__(self, number_of_wheels, type_of_tank, seating_capcity, maximum_velocity)
+file.index=file['year']
+del file['year']
+print(file.index)
 
+setA=file.head(11)
+print(setA)
 
-vios = Vehicle('4','petrol',5,150)
-print(vios.number_of_wheels)
-print(vios.type_of_tank)
-print(vios.seating_capacity)
-print(vios.maximum_velocity)
+setB=file.iloc[11:21]
+print(setB)
 
-blueSG = ElectricCar('4',5,180)
-blueSG.drive()
+setC=file.tail(10)
+print(setC)
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+ps =setA['Calories'].sort_values()
+index=np.arange(len(ps.index))
+plt.bar(ps.index, ps.values)
+plt.xlabel("Year", fontsize=17)
+plt.ylabel("No. of calories",fontsize=17)
+plt.xticks(index, ps.index, fontsize=14)
+plt.title("[1900-1910]",fontsize=17)
+plt.show();
+
+ps =setB['Calories'].sort_values()
+index=np.arange(len(ps.index))
+plt.bar(ps.index, ps.values)
+plt.xlabel("Year", fontsize=17)
+plt.ylabel("No. of calories",fontsize=17)
+plt.xticks(index, ps.index, fontsize=14)
+plt.title("[1910-1920]",fontsize=17)
+plt.show();
+
+ps =setC['Calories'].sort_values()
+index=np.arange(len(ps.index))
+plt.bar(ps.index, ps.values)
+plt.xlabel("Year", fontsize=17)
+plt.ylabel("No. of calories",fontsize=17)
+plt.xticks(index, ps.index, fontsize=14)
+plt.title("[1920-1930]",fontsize=17)
+plt.show();
+
+setAsum=sum(setA['Calories'])
+print(round(setAsum))
+
+setBsum=sum(setB['Calories'])
+print(round(setBsum))
+
+setCsum=sum(setC['Calories'])
+print(round(setCsum))
+
+setAmean=setAsum/len(setA["Calories"])
+print(round(setAmean,2))
+
+setBmean=setBsum/len(setB["Calories"])
+print(round(setBmean,2))
+
+setCmean=setCsum/len(setC["Calories"])
+print(round(setCmean,2))
